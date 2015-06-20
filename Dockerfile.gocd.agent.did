@@ -1,0 +1,2 @@
+FROM tutum.co/fedangelo/my-gocd-agent
+RUN adduser root docker && docker -d
