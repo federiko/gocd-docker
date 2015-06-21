@@ -1,3 +1,0 @@
-# Build using: docker build -f Dockerfile.gocd-agent-did -t did-gocd-agent .
-FROM tutum.co/fedangelo/my-gocd-agent
-RUN adduser root docker
