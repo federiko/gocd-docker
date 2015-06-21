@@ -1,6 +1,0 @@
-# Build using: docker build -f Dockerfile.gocd-server-ssh -t ssh-gocd-server .
-FROM tutum.co/fedangelo/my-gocd-server
-RUN mkdir /var/go/.ssh
-RUN chown -R go:go /var/go/.ssh
-RUN chmod -R 700 /var/go/.ssh
-VOLUME ["/var/go/.ssh"]
