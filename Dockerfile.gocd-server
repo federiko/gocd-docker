@@ -27,4 +27,9 @@ EXPOSE 8153 8154
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN mkdir /var/go/.ssh
+RUN chown -R go:go /var/go/.ssh
+RUN chmod -R 700 /var/go/.ssh
+VOLUME ["/var/go/.ssh"]
+
 CMD ["/sbin/my_init"]
