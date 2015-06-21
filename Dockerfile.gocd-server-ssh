@@ -1,0 +1,4 @@
+FROM tutum.co/fedangelo/my-gocd-server
+RUN mkdir /var/go/.ssh
+RUN chown -R go:go
+RUN chmod -R 700 /var/go/.ssh
