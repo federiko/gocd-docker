@@ -20,6 +20,5 @@ RUN mkdir /var/go/.ssh
 RUN chown -R go:go /var/go/.ssh
 RUN chmod -R 700 /var/go/.ssh
 VOLUME ["/var/go/.ssh"]
-RUN adduser root docker
 
 CMD ["/sbin/my_init"]
