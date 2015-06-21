@@ -1,6 +1,0 @@
-# Build using: docker build -f Dockerfile.gocd-agent-ssh -t ssh-gocd-agent .
-FROM tutum.co/fedangelo/my-gocd-agent
-RUN mkdir /var/go/.ssh
-RUN chown -R go:go /var/go/.ssh
-RUN chmod -R 700 /var/go/.ssh
-VOLUME ["/var/go/.ssh"]
