@@ -6,7 +6,9 @@ RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 RUN apt-get update && \
     apt-get install -y -q unzip openjdk-7-jre-headless git npm && \
     ln -s /usr/bin/nodejs /usr/bin/node && \
-    curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh && \
+    wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
+    nvm install 0.12.02 && \
+    nvm use 0.12.02 && \
     npm install -g grunt-cli && \
     apt-get install -y linux-image-generic-lts-trusty && \
     sudo apt-get install wget && \
