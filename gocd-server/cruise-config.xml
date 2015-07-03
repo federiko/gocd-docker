@@ -1,0 +1,81 @@
+Enter file contents here<?xml version="1.0" encoding="utf-8"?>
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="75">
+  <server artifactsdir="artifacts" agentAutoRegisterKey="123456789abcdef" commandRepositoryLocation="default" serverId="9d39bde2-1fb8-4825-b62c-8692a300b1c9" />
+  <pipelines group="Integration">
+    <pipeline name="Migration">
+      <materials>
+        <git url="git@gitlab.com:fedangelo/cloukt.git" />
+      </materials>
+      <stage name="Migrate">
+        <jobs>
+          <job name="Data">
+            <tasks>
+              <exec command="/bin/sh">
+                <arg>-c</arg>
+                <arg>cd ./migration &amp;&amp; npm install &amp;&amp; rm -rf ./test_migrations/migrations/.migrate &amp;&amp; grunt migrateup_test</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="Auth">
+      <materials>
+        <git url="git@gitlab.com:fedangelo/cloukt.git" />
+        <pipeline pipelineName="Migration" stageName="Migrate" />
+      </materials>
+      <stage name="AcceptanceTests">
+        <jobs>
+          <job name="BDD">
+            <tasks>
+              <exec command="/bin/sh">
+                <arg>-c</arg>
+                <arg>cd ./api-auth &amp;&amp; npm install &amp;&amp; grunt test_linux</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="Main">
+      <materials>
+        <git url="git@gitlab.com:fedangelo/cloukt.git" />
+        <pipeline pipelineName="Auth" stageName="AcceptanceTests" />
+      </materials>
+      <stage name="AcceptanceTests">
+        <jobs>
+          <job name="BDD">
+            <tasks>
+              <exec command="/bin/sh">
+                <arg>-c</arg>
+                <arg>cd ./api-auth &amp;&amp; npm install &amp;&amp; cd ../api-main &amp;&amp; npm install &amp;&amp; grunt test_linux</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="Productions">
+      <materials>
+        <git url="git@gitlab.com:fedangelo/cloukt.git" />
+        <pipeline pipelineName="Auth" stageName="AcceptanceTests" />
+      </materials>
+      <stage name="AcceptanceTests">
+        <jobs>
+          <job name="BDD">
+            <tasks>
+              <exec command="/bin/sh">
+                <arg>-c</arg>
+                <arg>cd ./api-auth &amp;&amp; npm install &amp;&amp; cd ../api-wedding &amp;&amp; npm install &amp;&amp; grunt test_linux</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+</cruise>
