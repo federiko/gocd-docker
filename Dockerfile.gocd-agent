@@ -10,8 +10,7 @@ RUN apt-get update && \
     curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - && \
     sudo apt-get install -y nodejs && \
     npm install -g grunt-cli && \
-    wget -qO- https://get.docker.com/ | sh && \
-    sudo usermod -aG docker go
+    wget -qO- https://get.docker.com/ | sh
 
 RUN mkdir /etc/service/go-agent
 ADD gocd-agent/go-agent-start.sh /etc/service/go-agent/run
@@ -24,9 +23,11 @@ RUN sed -i -e 's/DAEMON=Y/DAEMON=N/' /etc/default/go-agent /etc/default/go-agent
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN mkdir /var/go/.ssh
-RUN chown -R go:go /var/go/.ssh
-RUN chmod -R 700 /var/go/.ssh
+RUN mkdir /var/go/.ssh && \
+    chown -R go:go /var/go/.ssh && \
+    chmod -R 700 /var/go/.ssh
 VOLUME ["/var/go/.ssh"]
+
+RUN sudo usermod -aG docker go
 
 CMD ["/sbin/my_init"]
