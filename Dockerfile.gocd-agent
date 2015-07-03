@@ -7,9 +7,8 @@ RUN apt-get update && \
     apt-get install -y -q unzip openjdk-7-jre-headless git npm && \
     ln -s /usr/bin/nodejs /usr/bin/node && \
     sudo apt-get install wget && \
-    wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash && \
-    nvm install 0.12.02 && \
-    nvm use 0.12.02 && \
+    curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - && \
+    sudo apt-get install -y nodejs && \
     npm install -g grunt-cli && \
     apt-get install -y linux-image-generic-lts-trusty && \
     wget -qO- https://get.docker.com/ | sh
