@@ -9,7 +9,9 @@ RUN apt-get update && \
     sudo apt-get install wget && \
     curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - && \
     sudo apt-get install -y nodejs && \
-    npm install -g grunt-cli
+    npm install -g grunt-cli && \
+    wget -qO- https://get.docker.com/ | sh && \
+    sudo usermod -aG docker go
 
 RUN mkdir /etc/service/go-agent
 ADD gocd-agent/go-agent-start.sh /etc/service/go-agent/run
