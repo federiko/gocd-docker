@@ -30,4 +30,4 @@ VOLUME ["/var/go/.ssh"]
 
 RUN sudo usermod -aG docker go
 
-CMD ["/sbin/my_init"]
+CMD ["/usr/bin/service docker start && /sbin/my_init"]
