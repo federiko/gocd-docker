@@ -1,7 +1,4 @@
-Enter file contents here<?xml version="1.0" encoding="utf-8"?>
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="75">
-  <server artifactsdir="artifacts" agentAutoRegisterKey="123456789abcdef" commandRepositoryLocation="default" serverId="9d39bde2-1fb8-4825-b62c-8692a300b1c9" />
-  <pipelines group="Integration">
+<pipelines group="Integration">
     <pipeline name="Migration">
       <materials>
         <git url="git@gitlab.com:fedangelo/cloukt.git" />
@@ -78,4 +75,3 @@ Enter file contents here<?xml version="1.0" encoding="utf-8"?>
       </stage>
     </pipeline>
   </pipelines>
-</cruise>
