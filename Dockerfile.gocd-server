@@ -31,5 +31,6 @@ RUN mkdir /var/go/.ssh
 RUN chown -R go:go /var/go/.ssh
 RUN chmod -R 700 /var/go/.ssh
 VOLUME ["/var/go/.ssh"]
+ADD gocd-server/cruise-config.xml /etc/go/cruise-config.xml
 
 CMD ["/sbin/my_init"]
